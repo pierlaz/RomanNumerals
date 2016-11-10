@@ -1,7 +1,7 @@
 
 public class RomanNumerals {
 	
-	public static int convertToInteger(java.lang.String romanNumber) throws Max3RepetitionsException,InvalidRomanDigitException{
+	public static int convertToInteger(java.lang.String romanNumber) throws Max1RepetitionsException,Max3RepetitionsException,InvalidRomanDigitException{
 		
 		if(RomanNumerals.isValidRomanDigit(romanNumber) == false){
 			throw new InvalidRomanDigitException(); 
@@ -9,6 +9,10 @@ public class RomanNumerals {
 		
 		if(RomanNumerals.max3RepetionsOfADigit(romanNumber) == false){
 			throw new Max3RepetitionsException();
+		}
+		
+		if(RomanNumerals.max1RepetionsOfADigit(romanNumber) == false){
+			throw new Max1RepetitionsException();
 		}
 		
         int decimal = 0;
@@ -119,6 +123,38 @@ public class RomanNumerals {
 		
 		return flag;
 	}
+	
+	public static boolean max1RepetionsOfADigit(String romanNum) throws Max1RepetitionsException{
+		boolean flag = true;
+		int contaV = 0;
+		int contaL = 0;
+		int contaD = 0;
+		
+		for(int i=0; i<romanNum.length(); i++){
+			char romanDigit = romanNum.charAt(i);
+			if(romanDigit == 'V'){
+				contaV++;
+				if (contaV > 1){
+					return false;
+				}
+			}else if(romanDigit == 'L'){
+				contaL++;
+				if (contaL > 1){
+					return false;
+				}
+			}else if(romanDigit == 'D'){
+				contaD++;
+				if (contaD > 1){
+					return false;
+				}
+			}
+			
+		}
+		
+		return flag;
+		
+	}
+	
 	
 	public static void main(String[] args){
 		RomanNumerals r = new RomanNumerals();
