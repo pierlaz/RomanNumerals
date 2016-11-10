@@ -1,10 +1,14 @@
 
 public class RomanNumerals {
 	
-	public static int convertToInteger(java.lang.String romanNumber) throws InvalidRomanDigitException{
+	public static int convertToInteger(java.lang.String romanNumber) throws Max3RepetitionsException,InvalidRomanDigitException{
 		
 		if(RomanNumerals.isValidRomanDigit(romanNumber) == false){
-			throw new InvalidRomanDigitException();
+			throw new InvalidRomanDigitException(); 
+		}
+		
+		if(RomanNumerals.max3RepetionsOfADigit(romanNumber) == false){
+			throw new Max3RepetitionsException();
 		}
 		
         int decimal = 0;
@@ -14,7 +18,7 @@ public class RomanNumerals {
            enters roman values in lower case chars */
         for (int x = romanNumeral.length() - 1; x >= 0 ; x--) {
             char convertToDecimal = romanNumeral.charAt(x);
-
+            
             switch (convertToDecimal) {
                 case 'M':
                     decimal = processDecimal(1000, lastNumber, decimal);
@@ -78,7 +82,40 @@ public class RomanNumerals {
 			}
 		}
 		
+		return flag;
+	}
+	
+	public static boolean max3RepetionsOfADigit(String romanNum) throws Max3RepetitionsException{
+		boolean flag = true;
+		int contaI = 0;
+		int contaC = 0;
+		int contaX = 0;
+		int contaM = 0;
 		
+		for(int i=0; i<romanNum.length(); i++){
+			char romanDigit = romanNum.charAt(i);
+			if(romanDigit == 'I'){
+				contaI++;
+				if (contaI > 3){
+					return false;
+				}
+			}else if(romanDigit == 'X'){
+				contaX++;
+				if (contaX > 3){
+					return false;
+				}
+			}else if(romanDigit == 'C'){
+				contaC++;
+				if (contaC > 3){
+					return false;
+				}
+			}else if(romanDigit == 'M'){
+				contaM++;
+				if (contaM > 3){
+					return false;
+				}
+			}
+		}
 		
 		return flag;
 	}
